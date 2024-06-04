@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body{
+    background: rgb(0, 0, 0);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .skor{
+    position: fixed;
+    color: #000;
+    background: #f8fafb;
+    border-radius:40px;
+    padding: 7px 35px;
+    top: 50px;
+    left: 5vw;
+  }
+  .tv{
+    width: 90vw;
+    height: 60vh;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .oyuncu, .düşman{
+    width: 50px;
+    height: 70px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10px;
+  }
+  .oyuncu{
+    background: #0090ff;
+    left: 50px;
+    transition: all 300ms;
+  }
+  .düşman {
+    background: #f00;
+    left: 100%;
+  }

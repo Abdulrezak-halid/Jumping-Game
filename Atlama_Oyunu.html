@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Atlama Oyunu</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background: rgb(0, 0, 0);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.skor{
+  position: fixed;
+  color: #000;
+  background: #f8fafb;
+  border-radius:40px;
+  padding: 7px 35px;
+  top: 50px;
+  left: 5vw;
+}
+.tv{
+  width: 90vw;
+  height: 60vh;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  position: relative;
+  overflow: hidden;
+}
+.oyuncu, .düşman{
+  width: 50px;
+  height: 70px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 10px;
+}
+.oyuncu{
+  background: #0090ff;
+  left: 50px;
+  transition: all 300ms;
+}
+.düşman {
+  background: #f00;
+  left: 100%;
+}
+  </style>
+</head>
+<body>
+   <p class="skor">skor : 0</p> 
+   <div class="tv">
+     <div class="oyuncu"></div>
+     <div class="düşman"></div>
+   </div> 
+   <script defer src="main.js"></script>
+   <script>
+const tv = document.querySelector('.tv')
+const oyuncu = document.querySelector('.oyuncu')
+const düşman = document.querySelector('.düşman')
+const skor = document.querySelector('.skor')
+
+let x = window.innerWidth;
+let y = 90;
+let düşmanSpeed = 5
+let count = 0
+let msg
+let oyunbitti = false;
+
+window.addEventListener('click', ()=>{
+  oyuncu.style.bottom = `${y}px`
+  setTimeout(e=>{
+    oyuncu.style.bottom = `10px`
+  }, 600)
+})
+function run(){
+  let oyuncuCoord = oyuncu.getBoundingClientRect();
+  let düşmanCoord = düşman.getBoundingClientRect();
+  if (!oyunbitti) {
+    x -= düşmanSpeed
+  }
+  if (x < -60) {
+    count += 1
+    x = window.innerWidth
+  }
+  skor.innerText = `Skor: ${count}`
+  düşman.style.left = `${x}px`
+  if (((düşmanCoord.bottom <= oyuncuCoord.bottom || (düşmanCoord.bottom < (oyuncuCoord.bottom + 70) && (düşmanCoord.left >= (oyuncuCoord.left)))) && (düşmanCoord.left == (oyuncuCoord.left + 50) || düşmanCoord.left <= (oyuncuCoord.left)))) {
+    x = window.innerWidth + 400
+    oyuncu.style.bottom = `10px`
+    msg = confirm(`Kaybettin !\n\n Skorunuz${count}`)
+    count = 0
+    oyunbitti = true
+    if (msg === true) {
+      oyunbitti = false
+    }
+  } 
+  requestAnimationFrame(run)
+}
+run()
+   </script>
+</body>
+</html>
